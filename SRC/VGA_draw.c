@@ -131,6 +131,8 @@ void bitmap (int nr, int x_lo, int y_lo) {
 
 void clearscherm (kleurType kleur) {
 
+    logger( __func__, NOTE, "clearscreen.");     
+
 }
 
 void wacht (int msecs) {

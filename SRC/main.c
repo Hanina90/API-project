@@ -1,8 +1,11 @@
 #include "VGA_draw.h"
+#include "VGA_io.h"
 
 int main() {
 
     logger (__func__, NOTE, "Start programma");
+
+    initaliseer_VGA();
 
     lijn (1, 1, 2, 2, 30, ZWART);
     ellipse (1, 1, 1, 1, ZWART);

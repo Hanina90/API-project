@@ -31,15 +31,15 @@ typedef enum {
 
 /** stijlType. */
 typedef enum {
-    STYLE,
-    TWEE
+    NORMAL,
+    ITALIC,
+    BOLD
 } stijlType;
 
 /** fontType. */
 typedef enum {
     FONT,
     TWEEDE
-
 } fontType;
 
 /** Error handling functies */

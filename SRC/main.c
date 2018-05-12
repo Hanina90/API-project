@@ -1,18 +1,14 @@
-#include "VGA_draw.h"
-#include "VGA_io.h"
+#include "main.h"
 
 int main() {
 
+
+    init_VGA_API();
+    init_UART();
+
     logger (__func__, NOTE, "Start programma");
 
-    initaliseer_VGA();
-
-    lijn (1, 1, 2, 2, 30, ZWART);
-    ellipse (1, 1, 1, 1, ZWART);
-    rechthoek (1, 1, 1, 1, ZWART);
-    driehoek (1, 1, 1, 1, 1, 1, ZWART);
-    tekst (1, 1, "blah", FONT, ZWART, STYLE);
-    bitmap (10, 100, 100); 
+    input_afhandeling ();
 
     return 0;
 }

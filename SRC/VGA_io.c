@@ -5,16 +5,26 @@
 #include "VGA_io.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-// Level of debugging:
-#define PRINT_ERROR
-#define PRINT_WARNING
-#define PRINT_NOTE
-
-typedef enum { false, true } bool;
+#include <string.h>
 
 /**
- * Logger: Print functie naam, error type en meegegeven message bij een error
+ * @Brief: Zet printen aan/uit voor verschillende error types
+ *
+ * @param errors printen ON/OFF
+ * @param warnings printen ON/OFF
+ * @param notes printen ON/OFF
+ */
+void init_logger( bool errorON, bool warningON, bool noteON ) {
+
+    print_error     = errorON;
+    print_warning   = warningON;
+    print_note      = noteON;
+    
+}
+
+/**
+ * @Brief: Print functie naam, error type en meegegeven message bij een error
+ *
  * @param function de naam van de functie waarin de logger is aangeroepen
  * @param error type van de error (error, warning of note)
  * @param message de meegegeven boodschap
@@ -23,47 +33,50 @@ void logger( const char* function, errorType error, const char* message ) {
 
     char* errortype;
     const char* functie;
+    char output_string[128];
 
     functie = function; 
 
     // (error)message type:
     switch (error) {
         case ERROR:
-            #if !defined(PRINT_ERROR) 
-                return;
-            #endif
+            if(!print_error) return;
                         
             errortype = "ERROR:  ";
             break;
 
         case WARNING:
-            #if !defined(PRINT_WARNING) 
-                return;
-            #endif
-            
+            if(!print_warning) return;
+        
             errortype = "WARNING:";
             break;
 
         case NOTE:
-            #if !defined(PRINT_NOTE) 
-                return;
-            #endif
+            if(!print_note) return;
 
             errortype = "NOTE:   ";
             break;
     }   
 
-    printf("%s In functie %s: %s \n", errortype, functie, message);
+    strcpy(output_string, errortype);
+    strcat(output_string, " In functie ");
+    strcat(output_string, functie);
+    strcat(output_string, ": ");
+    strcat(output_string, message);
+    strcat(output_string, "\n");
 
+    //UART_puts(output_string);
+    printf("%s", output_string);
+    
 }
 
 /**
- * initialiseer_VGA: het initialiseren van het VGA scherm
+ * @brief: het initialiseren van het VGA scherm
  */
 void initaliseer_VGA() {
 
-    bool connected = 1;
-    bool message_send = 0;
+    bool connected = true; // TODO not implemented yet so hardcoded true
+    bool message_send = false;
 
     // check VGA connection
     logger( __func__, NOTE, "Check VGA aansluiting"); 
@@ -77,17 +90,15 @@ void initaliseer_VGA() {
         // print error once
         if (!connected && !message_send) {   
             logger( __func__, ERROR,    "VGA is niet aangesloten, sluit VGA scherm aan."); 
-            message_send = 1;
+            message_send = true;
             exit(0); //TODO: remove
           
         }
-
-        
+ 
     } while (!connected);
 
     logger( __func__, NOTE, "VGA is aangesloten");
-
-    clearscherm (ZWART);
+    clearscherm (ZWART); 
 
 }
 

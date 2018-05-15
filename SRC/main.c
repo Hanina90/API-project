@@ -8,7 +8,8 @@ int main() {
 
     logger (__func__, NOTE, "Start programma");
 
-    input_afhandeling ();
+    //input_afhandeling ();
+    leesBuffer();
 
     return 0;
 }

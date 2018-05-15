@@ -1,24 +1,12 @@
 #include "logic_layer.h"
 
-/** commandType. */
-typedef enum {
-    LIJN,
-    ELLIPSE,
-    RECHTHOEK,
-    DRIEHOEK,
-    TEKST,
-    BITMAP
-
-} commandType;
-
 void input_afhandeling () {
-
-    commandType command = LIJN; // TODO hardcoded at this moment
+    
     kleurType kleur = ZWART;    
 
     logger (__func__, NOTE, "Input check");
 
-    switch ( command ) {
+    switch ( user_input.command ) {
         
         case LIJN:
             logger (__func__, NOTE, "Teken lijn");

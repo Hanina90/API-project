@@ -1,11 +1,21 @@
 #ifndef front_layer_H_   
 #define front_layer_H_
 
-#include "IO_layer.h"
+#include "main.h"
 
-unsigned char* leesBuffer ();
+struct user_input;
 
-void copyBuffer (buffer*);
+struct user_input {
+
+    commandType command;
+    int  coordinates[6];
+    kleurType input_kleur; 
+
+} user_input;
+
+void printCommand ();
+void leesBuffer ();
+
 
 
 #endif // front_layer_H_

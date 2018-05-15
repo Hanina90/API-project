@@ -5,7 +5,7 @@
 #ifndef IO_layer_H_   
 #define IO_layer_H_
 
-#include "VGA_io.h"
+#include "main.h"
 
 void init_VGA_API();
 void init_UART();

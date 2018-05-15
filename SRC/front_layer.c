@@ -1,6 +1,6 @@
 #include "front_layer.h"
 
-char test_input[40] = "lijn,1,1,100,100,4,rood";
+char test_input[40] = "ellipse,1,1,100,100,4,rood";
 
 void printCommand () {
 
@@ -33,30 +33,27 @@ void leesBuffer () {
         logger (__func__, ERROR, "Geen command meegegeven");
 
 
+        if      (   strcmp(words[0], "lijn") == 0 ||
+                    strcmp(words[0], "Lijn") == 0 ||
+                    strcmp(words[0], "LIJN") == 0 ) {
+                        user_input.command = LIJN;
+        }
+        else if (   strcmp(words[0], "ellipse") == 0 ||
+                    strcmp(words[0], "Ellipse") == 0 ||
+                    strcmp(words[0], "ELLIPSE") == 0 ) {
+                        user_input.command = ELLIPSE;
+        }
+        else if (   strcmp(words[0], "rechthoek") == 0 ||
+                    strcmp(words[0], "Rechthoek") == 0 ||
+                    strcmp(words[0], "RECHTHOEK") == 0 ) {
+                        user_input.command = RECHTHOEK;
+        }
+        else if (   strcmp(words[0], "driehoek") == 0 ||
+                    strcmp(words[0], "Driehoek") == 0 ||
+                    strcmp(words[0], "DRIEHOEK") == 0 ) {
+                        user_input.command = DRIEHOEK;
+        }
 
-        if ( strcmp(words[0], "lijn") == 0 ||
-             strcmp(words[0], "Lijn") == 0 ||
-             strcmp(words[0], "LIJN") == 0 )
-                user_input.command = LIJN;
-
-        /*
-        case "ellipse":        // Falltrough is intentional 
-        case "Ellipse":
-        case "ELLIPSE":
-            user_input.command = ELLIPSE;
-            break;
-
-        case "rechthoek":        // Falltrough is intentional 
-        case "Rechthoek":
-        case "RECHTHOEK":
-            user_input.command = ELLIPSE;
-            break;
-
-        case "driehoek":        // Falltrough is intentional 
-        case "Driehoek":
-        case "DRIEHOEK":
-
-        */
         //TODO de rest van commands toevoegen 
           
     printCommand ();

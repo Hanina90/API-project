@@ -15,12 +15,14 @@
 
 /** commandType. */
 typedef enum {
+    NONE,
     LIJN,
     ELLIPSE,
     RECHTHOEK,
     DRIEHOEK,
     TEKST,
-    BITMAP
+    BITMAP,
+    WACHT 
 
 } commandType;
 

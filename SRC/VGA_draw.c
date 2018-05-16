@@ -38,7 +38,7 @@ void lijndikte_check (int dikte) {
     if (dikte > MAX_LIJNDIKTE) {
         logger( __func__, WARNING, "gegeven lijndikte is groter dan maximum lijndikte"); 
         dikte = MAX_LIJNDIKTE;
-        logger( __func__, NOTE, "lijndikte is gelijk aan maximum gemaakt"); 
+        logger( __func__, WARNING, "lijndikte is gelijk aan maximum gemaakt"); 
     }
         
 }

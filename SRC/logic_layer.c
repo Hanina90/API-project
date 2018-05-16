@@ -2,10 +2,11 @@
 
 void input_afhandeling () {
     
-    kleurType kleur = ZWART;    
+    kleurType kleur = user_input.input_kleur;    
 
-    logger (__func__, NOTE, "Input check");
+    logger (__func__, NOTE, "Input verwerken");
 
+    // voer command uit 
     switch ( user_input.command ) {
         
         case LIJN:
@@ -36,6 +37,14 @@ void input_afhandeling () {
         case BITMAP:
             logger (__func__, NOTE, "Teken bitmap");
             bitmap (10, 100, 100); 
+            break;
+
+        case WACHT:
+            logger (__func__, NOTE, "Teken bitmap");
+            wacht (100); 
+            break;
+        case NONE:
+            logger (__func__, NOTE, "nothing to do");
             break;
 
         default:

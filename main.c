@@ -1,6 +1,6 @@
 //--------------------------------------------------------------
 // File     : main.c
-// Datum    : 12.05.2018
+// Datum    : 10.05.2018
 // Version  : 1.0
 // Autor    : Raha Hanina
 // mods by	: J.F. van der Bent
@@ -14,14 +14,16 @@
 #include "stm32_ub_vga_screen.h"
 #include <math.h>
 
-int radius_y_ =  10;
-int radius_x_ =  100;
-int x_mp_ = 100;
-int y_mp_ = 100;
-int kleur_ = 10;
-void ellipse (int x_mp, int y_mp, int radius_x, int radius_y, int kleur );
+float x_1_ = 100;
+float x_2_ = 200;
+float x_3_ = 10;
+float y_1_ = 20;
+float y_2_ = 20;
+float y_3_ = 100;
 
-//float y;
+int kleur_ = 0;
+
+void driehoek (float x_1, float x_2, float x_3, float y_1, float y_2, float y_3, float kleur);
 
 int main(void)
 {
@@ -30,48 +32,126 @@ int main(void)
 
 	UB_VGA_Screen_Init(); // Init VGA-Screen
 
-	UB_VGA_FillScreen(VGA_COL_GREEN);
+    UB_VGA_FillScreen(VGA_COL_GREEN);
+    driehoek (x_1_, x_2_, x_3_, y_1_, y_2_, y_3_, kleur_);
 
-	ellipse(x_mp_, y_mp_, radius_x_, radius_y_, kleur_);
-
-    while(1)
-	  {
-	  }
+while(1)
+  {
+  }
 }
 
-void ellipse (int x_mp, int y_mp, int radius_x, int radius_y, int kleur ){
+void driehoek (float x_1, float x_2, float x_3, float y_1, float y_2, float y_3, float kleur){
 
-int hh;
-int ww;
-int hhww;
-int x0;
-int dx = 0;
+////////////////////////////////////x1 en x2////////////////////////////////////////////////////////////////
+	    if (x_2 > x_1)
+	   	  {
 
-hh =  pow (radius_y, 2);
-ww = pow (radius_x, 2);
-hhww = hh * ww;
-x0 = radius_x;
+	   		  for(int x = x_1; (x <= x_2); x++)
+	   		  {
+	   				  float y = ((y_2 - y_1)/ (x_2- x_1))* (x - x_1) + y_1;
+	   				  UB_VGA_SetPixel(x,y,kleur);
+	   		  }
+	   	  }
 
-// do the horizontal diameter
-for (int x = -radius_x; x <= radius_x; x++)
-	 UB_VGA_SetPixel(x_mp + x, y_mp, kleur);
+	   	  if (x_2 < x_1)
+	   	  {
+	   		  for(int x = x_2; (x <= x_1); x++)
+	   		  	  {
+	   		  			  float y = ((y_2 - y_1)/ (x_2 - x_1))* (x - x_1) + y_1;
+	   		  			  UB_VGA_SetPixel(x,y,kleur);
+	   		  	  }
+	   	  }
 
-// now do both halves at the same time, away from the diameter
-for (int y = 1; y <= radius_y; y++)
-	{
-		int x1 = x0 - (dx - 1);  // try slopes of dx - 1 or more
-		for ( ; x1 > 0; x1--)
-			if (x1*x1*hh + y*y*ww <= hhww)
-				break;
-		dx = x0 - x1;  // current approximation of the slope
-		x0 = x1;
+	   	  if (x_1 == x_2 && y_2 > y_1)
+	   	  {
+	   		  for(int y = y_1; (y <= y_2); y++)
+	   		  	  	  {
+	   		  	  			float  x = x_1;
+	   		  	  		    UB_VGA_SetPixel(x,y,kleur);
+	   		  	  	  }
+	   	  }
 
-		for (int x = -x0; x <= x0; x++)
-		{
-			UB_VGA_SetPixel(x_mp + x,y_mp - y, kleur);
-			UB_VGA_SetPixel(x_mp + x,y_mp + y, kleur);
-		}
-	}
+	   	  if (x_1 == x_2 && y_2 < y_1)
+	   	    {
+	   	  	  for(int y = y_2; (y <= y_1); y++)
+	   	  	  	  	  {
+	   	  	  	  			float  x = x_1;
+	   	  	  	  	        UB_VGA_SetPixel(x,y,kleur);
+	   	  	  	  	  }
+	   	    }
+////////////////////////////x2 en x3//////////////////////////////////////////////////////////
+	   	 if (x_3 > x_2)
+	   		  {
+
+	   			  for(int x = x_2; (x <= x_3); x++)
+	   			  {
+	   					  float y = ((y_3 - y_2)/ (x_3 - x_2))* (x - x_2) + y_2;
+	   					  UB_VGA_SetPixel(x, y, kleur);
+	   			  }
+	   		  }
+
+	   		  if (x_3 < x_2)
+	   		  {
+	   			  for(int x = x_3; (x <= x_2); x++)
+	   			  	  {
+	   			  			  float y = ((y_3 - y_2)/ (x_3 - x_2))* (x - x_2) + y_2;
+	   			  			  UB_VGA_SetPixel(x, y, kleur);
+	   			  	  }
+	   		  }
+
+	   		  if (x_2 == x_3 && y_3 > y_2)
+	   		  {
+	   			  for(int y = y_2; (y <= y_3); y++)
+	   			  	  	  {
+	   			  	  			float  x = x_2;
+	   			  	  			UB_VGA_SetPixel(x, y, kleur);
+	   			  	  	  }
+	   		  }
+
+	   		  if (x_2 == x_3 && y_3 < y_2)
+	   		    {
+	   		  	  for(int y = y_3; (y <= y_2); y++)
+	   		  	  	  	  {
+	   		  	  	  			float  x = x_2;
+	   		  	  	  			UB_VGA_SetPixel(x, y, kleur);
+	   		  	  	  	  }
+	   		    }
+//////////////////////////////////////x1 en x3///////////////////////////////////////////////////////////
+	   		 if (x_3 > x_1)
+	   			  {
+
+	   				  for(int x = x_1; (x <= x_3); x++)
+	   				  {
+	   						  float y = ((y_3 - y_1)/ (x_3 - x_1))* (x - x_1) + y_1;
+	   						  UB_VGA_SetPixel(x, y, kleur);
+	   				  }
+	   			  }
+
+	   			  if (x_3 < x_1)
+	   			  {
+	   				  for(int x = x_3; (x <= x_1); x++)
+	   				  	  {
+	   				  			  float y = ((y_3 - y_1)/ (x_3 - x_1))* (x - x_1) + y_1;
+	   				  			  UB_VGA_SetPixel(x, y, kleur);
+	   				  	  }
+	   			  }
+
+	   			  if (x_1 == x_3 && y_3 > y_1)
+	   			  {
+	   				  for(int y = y_1; (y <= y_3); y++)
+	   				  	  	  {
+	   				  	  			float  x = x_1;
+	   				  	  		    UB_VGA_SetPixel(x, y, kleur);
+	   				  	  	  }
+	   			  }
+
+	   			  if (x_1 == x_3 && y_3 < y_1)
+	   			    {
+	   			  	  for(int y = y_3; (y <= y_1); y++)
+	   			  	  	  	  {
+	   			  	  	  			float  x = x_1;
+	   			  	  	  	        UB_VGA_SetPixel(x ,y, kleur);
+	   			  	  	  	  }
+	   			    }
 }
-
 

@@ -1,0 +1,40 @@
+#include "main.h"
+#include "stm32_ub_vga_screen.h"
+#include <math.h>
+
+char color = 'g';
+void clearscherm (char kleur);
+
+int main(void)
+{
+	SystemInit(); // System speed to 168MHz
+
+	UB_VGA_Screen_Init(); // Init VGA-Screen
+
+    //UB_VGA_FillScreen(VGA_COL_WHITE);
+    clearscherm(color);
+
+while(1)
+  {
+  }
+}
+
+
+
+void clearscherm ( char kleur)
+{
+	switch (kleur) {
+		case 'w':  UB_VGA_FillScreen(VGA_COL_WHITE);
+	    break;
+		case 'z':UB_VGA_FillScreen(VGA_COL_BLACK);
+		break;
+		case 'r':  UB_VGA_FillScreen(VGA_COL_RED);
+		break;
+		case 'b':UB_VGA_FillScreen(VGA_COL_BLUE);
+		break;
+		case 'y':  UB_VGA_FillScreen(VGA_COL_YELLOW);
+		break;
+		case 'g':UB_VGA_FillScreen(VGA_COL_GREEN);
+		break;
+	}
+}

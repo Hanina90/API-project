@@ -1,0 +1,75 @@
+#include "main.h"
+#include "stm32_ub_vga_screen.h"
+#include <math.h>
+
+float x_lo_ = 100;
+float x_rb_ = 150;
+float y_lo_ = 150;
+float y_rb_ = 90;
+int kleur = 7;
+
+void rechthoek (float x_lo, float y_lo, float x_rb, float y_rb, int kleur);
+int main(void)
+{
+
+	SystemInit(); // System speed to 168MHz
+
+	UB_VGA_Screen_Init(); // Init VGA-Screen
+
+    UB_VGA_FillScreen(VGA_COL_GREEN);
+
+    rechthoek(x_lo_, y_lo_, x_rb_, y_rb_, kleur);
+
+while(1)
+  {
+  }
+}
+
+void rechthoek (float x_lo, float y_lo, float x_rb, float y_rb, int kleur){
+
+////////////////////////////////////x1,y1 to x2,y1  en  x1,y2 to x2,y2////////////////////////////////////////////////////////////////
+if (x_rb > x_lo)
+{
+  for(int x = x_lo; (x <= x_rb); x++){
+		float y_onder = ((y_lo - y_lo)/ (x_rb - x_lo))* (x - x_lo) + y_lo;
+		UB_VGA_SetPixel(x,(y_onder), kleur);
+		float y_boven = ((y_rb - y_rb)/ (x_rb - x_lo))* (x - x_lo) + y_rb;
+		UB_VGA_SetPixel(x,(y_boven), kleur);
+	}
+}
+
+else
+{
+	for(int x = x_rb; (x <= x_lo); x++){
+
+		float y_onder = ((y_lo - y_lo)/ (x_rb - x_lo))* (x - x_lo) + y_lo;
+		UB_VGA_SetPixel(x,(y_onder), kleur);
+		float y_boven = ((y_rb - y_rb)/ (x_rb- x_lo))* (x - x_lo) + y_rb;
+		UB_VGA_SetPixel(x,(y_boven), kleur);
+
+	}
+}
+
+/////////////////////////////x1,y1 to x1,y2  en  x2,y1 to x2,y2///////////////////////////////////////////////////////////////////////
+if (y_rb > y_lo)
+{
+	for(int y = y_lo; (y < (y_rb)); y++){
+
+		float  x_re = x_lo;
+		UB_VGA_SetPixel((x_re),(y), kleur);
+		float x_li = x_rb;
+		UB_VGA_SetPixel((x_li),(y), kleur);
+	}
+}
+
+else
+{
+	for(int y = y_rb; (y < (y_lo)); y++){
+		
+		float  x_re = x_lo;
+		UB_VGA_SetPixel((x_re),(y), kleur);
+		float x_li = x_rb;
+		UB_VGA_SetPixel((x_li),(y), kleur);
+	}
+}
+}

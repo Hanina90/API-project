@@ -2,7 +2,7 @@
 #include "stm32_ub_vga_screen.h"
 #include <math.h>
 
-int radius_y_ =  10;
+int radius_y_ =  15;
 int radius_x_ =  100;
 int x_mp_ = 100;
 int y_mp_ = 100;
